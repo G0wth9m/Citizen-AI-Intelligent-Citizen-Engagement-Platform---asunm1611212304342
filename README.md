@@ -1,6 +1,13 @@
 # 🤖 CitizenAI - Intelligent Citizen Engagement Platform
 
 CitizenAI is an intelligent citizen engagement platform designed to revolutionize how governments interact with the public. Leveraging Flask, IBM Granite models, and IBM Watson, CitizenAI provides real-time, AI-driven responses to citizen inquiries regarding government services, policies, and civic issues.
+## Screenshots
+
+![Screenshot 1](assets/CITIZEN_AI_1.jpg)
+![Screenshot 2](assets/CITIZEN_AI_2.jpg)
+![Screenshot 3](assets/CITIZEN_AI_3.jpg)
+![Screenshot 4](assets/CITIZEN_AI_4.jpg)
+![Screenshot 5](assets/CITIZEN_AI_5.jpg)
 
 ## 🚀 Quick Start
 
