@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - CitizenAI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <div class="nav-brand">
+                    <h1>CitizenAI</h1>
+                </div>
+                <div class="nav-links">
+                    <a href="{{ url_for('index') }}">Home</a>
+                    <a href="{{ url_for('about') }}">About</a>
+                    <a href="{{ url_for('services') }}">Services</a>
+                    <a href="{{ url_for('chat') }}">Chat</a>
+                    <a href="{{ url_for('logout') }}">Logout</a>
+                </div>
+            </nav>
+        </header>
+
+        <main class="content-page">
+            <div class="page-header">
+                <h1>Citizen Insights Dashboard</h1>
+                <p class="subtitle">Real-time analytics and citizen engagement metrics</p>
+            </div>
+
+            <section class="dashboard-content">
+                <!-- Summary Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>Total Interactions</h3>
+                        <div class="stat-number">{{ total_interactions or 0 }}</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Total Concerns</h3>
+                        <div class="stat-number">{{ recent_concerns|length or 0 }}</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Positive Sentiment</h3>
+                        <div class="stat-number">{{ sentiment_data.positive or 0 }}</div>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Active Issues</h3>
+                        <div class="stat-number">{{ recent_concerns|length or 0 }}</div>
+                    </div>
+                </div>
+
+                <!-- Sentiment Analysis Chart -->
+                <div class="chart-section">
+                    <h2>Weekly Sentiment Analysis</h2>
+                    <div class="chart-container">
+                        <canvas id="sentimentChart"></canvas>
+                    </div>
+                    
+                    <div class="sentiment-summary">
+                        <div class="sentiment-item positive">
+                            <span class="sentiment-label">Positive:</span>
+                            <span class="sentiment-count">{{ sentiment_data.positive or 0 }}</span>
+                        </div>
+                        <div class="sentiment-item neutral">
+                            <span class="sentiment-label">Neutral:</span>
+                            <span class="sentiment-count">{{ sentiment_data.neutral or 0 }}</span>
+                        </div>
+                        <div class="sentiment-item negative">
+                            <span class="sentiment-label">Negative:</span>
+                            <span class="sentiment-count">{{ sentiment_data.negative or 0 }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Citizen Issues -->
+                <div class="issues-section">
+                    <h2>Recent Citizen Issues</h2>
+                    <div class="issues-container">
+                        {% if recent_concerns %}
+                            {% for concern in recent_concerns %}
+                                <div class="issue-card">
+                                    <div class="issue-header">
+                                        <span class="issue-date">{{ concern.timestamp }}</span>
+                                        <span class="issue-status status-{{ concern.status.lower() }}">{{ concern.status }}</span>
+                                    </div>
+                                    <div class="issue-content">
+                                        {{ concern.text }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="no-issues">
+                                <p>No recent concerns reported. Great job! 🎉</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Insights Section -->
+                <div class="insights-section">
+                    <h2>Key Insights</h2>
+                    <div class="insights-grid">
+                        <div class="insight-card">
+                            <h3>📈 Engagement Trend</h3>
+                            <p>
+                                {% if total_interactions > 10 %}
+                                    High citizen engagement with {{ total_interactions }} total interactions
+                                {% elif total_interactions > 0 %}
+                                    Moderate engagement with {{ total_interactions }} interactions
+                                {% else %}
+                                    Getting started - encourage more citizen participation
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div class="insight-card">
+                            <h3>😊 Sentiment Overview</h3>
+                            <p>
+                                {% set total_sentiment = sentiment_data.positive + sentiment_data.neutral + sentiment_data.negative %}
+                                {% if total_sentiment == 0 %}
+                                    No feedback collected yet
+                                {% elif sentiment_data.positive > sentiment_data.negative %}
+                                    Positive citizen sentiment overall
+                                {% elif sentiment_data.negative > sentiment_data.positive %}
+                                    Areas for improvement identified
+                                {% else %}
+                                    Balanced citizen feedback
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div class="insight-card">
+                            <h3>🎯 Action Items</h3>
+                            <p>
+                                {% if recent_concerns %}
+                                    {{ recent_concerns|length }} concerns need attention
+                                {% else %}
+                                    No outstanding concerns - system running smoothly
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="back-link">
+                <a href="{{ url_for('chat') }}">← Back to Chat</a>
+            </div>
+        </main>
+    </div>
+
+    <!-- Pass data to JavaScript -->
+    <script type="application/json" id="sentiment-data">
+        {
+            "positive": {{ sentiment_data.positive or 0 }},
+            "neutral": {{ sentiment_data.neutral or 0 }},
+            "negative": {{ sentiment_data.negative or 0 }}
+        }
+    </script>
+    
+    <script>
+        // Sentiment Chart - Load data from JSON script tag
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('sentimentChart');
+            if (ctx) {
+                try {
+                    // Get sentiment data from JSON script tag
+                    const sentimentDataElement = document.getElementById('sentiment-data');
+                    const sentimentData = JSON.parse(sentimentDataElement.textContent);
+                    
+                    const chartData = [
+                        sentimentData.positive || 0,
+                        sentimentData.neutral || 0,
+                        sentimentData.negative || 0
+                    ];
+                    
+                    // Create the chart
+                    const sentimentChart = new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Positive', 'Neutral', 'Negative'],
+                            datasets: [{
+                                data: chartData,
+                                backgroundColor: [
+                                    '#4CAF50',
+                                    '#FFC107',
+                                    '#F44336'
+                                ],
+                                borderWidth: 2,
+                                borderColor: '#fff'
+                            }]
+                        },
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            plugins: {
+                                legend: {
+                                    position: 'bottom',
+                                    labels: {
+                                        padding: 20,
+                                        usePointStyle: true,
+                                        font: {
+                                            size: 12
+                                        }
+                                    }
+                                },
+                                tooltip: {
+                                    callbacks: {
+                                        label: function(context) {
+                                            const label = context.label || '';
+                                            const value = context.parsed || 0;
+                                            const total = chartData.reduce((a, b) => a + b, 0);
+                                            const percentage = total > 0 ? Math.round((value / total) * 100) : 0;
+                                            return label + ': ' + value + ' (' + percentage + '%)';
+                                        }
+                                    }
+                                }
+                            },
+                            cutout: '60%'
+                        }
+                    });
+                    
+                    // Show message if no data
+                    const total = chartData.reduce((a, b) => a + b, 0);
+                    if (total === 0) {
+                        const chartContainer = ctx.parentElement;
+                        const noDataMsg = document.createElement('div');
+                        noDataMsg.className = 'no-data-message';
+                        noDataMsg.style.textAlign = 'center';
+                        noDataMsg.style.color = '#666';
+                        noDataMsg.style.padding = '20px';
+                        noDataMsg.innerHTML = 'No sentiment data available yet. Start collecting feedback!';
+                        chartContainer.appendChild(noDataMsg);
+                    }
+                } catch (error) {
+                    console.error('Error loading sentiment chart:', error);
+                    const chartContainer = ctx.parentElement;
+                    const errorMsg = document.createElement('div');
+                    errorMsg.style.textAlign = 'center';
+                    errorMsg.style.color = '#f44336';
+                    errorMsg.style.padding = '20px';
+                    errorMsg.innerHTML = 'Error loading chart. Please refresh the page.';
+                    chartContainer.appendChild(errorMsg);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

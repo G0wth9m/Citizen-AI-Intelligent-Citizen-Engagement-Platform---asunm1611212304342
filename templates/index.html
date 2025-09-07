@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CitizenAI - Intelligent Citizen Engagement</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <div class="nav-brand">
+                    <h1>CitizenAI</h1>
+                </div>
+                <div class="nav-links">
+                    <a href="{{ url_for('about') }}">About</a>
+                    <a href="{{ url_for('services') }}">Services</a>
+                    <a href="{{ url_for('chat') }}">Chat</a>
+                    <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                    <a href="{{ url_for('login') }}">Login</a>
+                </div>
+            </nav>
+        </header>
+
+        <main class="hero-section">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>Empowering Citizens Through AI</h1>
+                    <p>CitizenAI is your intelligent assistant helping citizens engage with government services, provide feedback, and communicate more effectively with public institutions.</p>
+                    <a href="{{ url_for('login') }}" class="cta-button">Get Started</a>
+                </div>
+                <div class="hero-visual">
+                    <div class="ai-graphic">
+                        <div class="circuit-pattern"></div>
+                        <div class="head-silhouette"></div>
+                        <div class="code-overlay">
+                            <span>AI.engage()</span>
+                            <span>citizen.connect()</span>
+                            <span>government.respond()</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <section class="features-preview">
+            <h2>Building Smarter Government-Citizen Relationships</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>💬 AI Chat Assistant</h3>
+                    <p>Get instant responses to your government service questions</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🧠 Sentiment Analysis</h3>
+                    <p>Share feedback and help improve public services</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📊 Real-time Dashboard</h3>
+                    <p>Track civic engagement and community sentiment</p>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+</html>

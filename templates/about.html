@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - CitizenAI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <div class="nav-brand">
+                    <h1>CitizenAI</h1>
+                </div>
+                <div class="nav-links">
+                    <a href="{{ url_for('index') }}">Home</a>
+                    <a href="{{ url_for('services') }}">Services</a>
+                    <a href="{{ url_for('chat') }}">Chat</a>
+                    <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                    <a href="{{ url_for('login') }}">Login</a>
+                </div>
+            </nav>
+        </header>
+
+        <main class="content-page">
+            <div class="page-header">
+                <h1>About CitizenAI</h1>
+                <p class="subtitle">Revolutionizing Government-Citizen Interactions</p>
+            </div>
+
+            <section class="about-content">
+                <div class="intro-section">
+                    <p>CitizenAI is an intelligent citizen engagement platform designed to revolutionize how governments interact with the public. Leveraging Flask, IBM Granite models, and advanced AI technologies, CitizenAI provides real-time, AI-driven responses to citizen inquiries regarding government services, policies, and civic issues.</p>
+                </div>
+
+                <div class="simple-terms">
+                    <h2>In Simple Terms</h2>
+                    <div class="terms-grid">
+                        <div class="term-card">
+                            <h3>🤖 Ask Questions</h3>
+                            <p>Get instant, intelligent answers about government services, policies, and procedures through our AI-powered chat assistant.</p>
+                        </div>
+                        <div class="term-card">
+                            <h3>💭 Share Feedback</h3>
+                            <p>Express your thoughts and experiences with government services. Our AI analyzes sentiment to help improve public services.</p>
+                        </div>
+                        <div class="term-card">
+                            <h3>⚠️ Report Issues</h3>
+                            <p>Easily report concerns or problems with government services for quick resolution and tracking.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="key-features">
+                    <h2>Key Features</h2>
+                    <ul>
+                        <li><strong>Chat Assistant:</strong> AI-powered responses using IBM Granite Models for natural conversation</li>
+                        <li><strong>Sentiment Analysis:</strong> Real-time analysis of citizen feedback to gauge public opinion</li>
+                        <li><strong>Concern Reporting:</strong> Streamlined system for reporting and tracking civic issues</li>
+                        <li><strong>Analytics Dashboard:</strong> Real-time visualizations of citizen feedback and engagement metrics</li>
+                        <li><strong>24/7 Availability:</strong> Round-the-clock access to government information and services</li>
+                    </ul>
+                </div>
+
+                <div class="why-useful">
+                    <h2>Why It's Useful</h2>
+                    <div class="benefits-grid">
+                        <div class="benefit-card">
+                            <h3>🔍 Transparency</h3>
+                            <p>Makes government services more transparent and accessible to all citizens</p>
+                        </div>
+                        <div class="benefit-card">
+                            <h3>⚡ Efficiency</h3>
+                            <p>Automates routine inquiries, freeing up human resources for complex issues</p>
+                        </div>
+                        <div class="benefit-card">
+                            <h3>🤝 Engagement</h3>
+                            <p>Improves civic engagement and builds trust between citizens and government</p>
+                        </div>
+                        <div class="benefit-card">
+                            <h3>📈 Data-Driven</h3>
+                            <p>Provides actionable insights for better policy-making and service delivery</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="back-link">
+                <a href="{{ url_for('index') }}">← Back to Home</a>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - CitizenAI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <div class="nav-brand">
+                    <h1>CitizenAI</h1>
+                </div>
+                <div class="nav-links">
+                    <a href="{{ url_for('index') }}">Home</a>
+                    <a href="{{ url_for('about') }}">About</a>
+                    <a href="{{ url_for('chat') }}">Chat</a>
+                    <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                    <a href="{{ url_for('login') }}">Login</a>
+                </div>
+            </nav>
+        </header>
+
+        <main class="content-page">
+            <div class="page-header">
+                <h1>Our Services</h1>
+                <p class="subtitle">Comprehensive AI-Powered Civic Engagement Tools</p>
+            </div>
+
+            <section class="services-content">
+                <div class="service-section">
+                    <h2>🤖 Real-Time Conversational AI Assistant</h2>
+                    <div class="service-details">
+                        <p>Our primary interface for citizen interaction allows users to engage with public services naturally. The system captures user input in real-time and provides relevant, human-like responses instantly.</p>
+                        <ul>
+                            <li>Natural language processing for government queries</li>
+                            <li>24/7 availability for citizen support</li>
+                            <li>Instant responses to policy and service questions</li>
+                            <li>Issue reporting and task assistance</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="service-section">
+                    <h2>🧠 Citizen Sentiment Analysis</h2>
+                    <div class="service-details">
+                        <p>Advanced sentiment analysis to understand public feelings about government services and related topics, helping identify areas of satisfaction or concern.</p>
+                        <ul>
+                            <li>Real-time sentiment classification (Positive, Neutral, Negative)</li>
+                            <li>Aggregated sentiment data for trend analysis</li>
+                            <li>Public satisfaction monitoring</li>
+                            <li>Early identification of emerging issues</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="service-section">
+                    <h2>📊 Dynamic Analytics Dashboard</h2>
+                    <div class="service-details">
+                        <p>A central hub for government officials to gain real-time insights into citizen feedback and interactions through clear visualizations and metrics.</p>
+                        <ul>
+                            <li>Real-time sentiment visualization</li>
+                            <li>Interaction trends and peak activity tracking</li>
+                            <li>Aggregated service ratings</li>
+                            <li>Issue reporting and tracking</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="service-section">
+                    <h2>🎯 Personalized & Contextual Response System</h2>
+                    <div class="service-details">
+                        <p>Powered by IBM Granite models, our system provides intelligent, context-aware responses that go beyond generic answers to deliver personalized assistance.</p>
+                        <ul>
+                            <li>Advanced natural language understanding</li>
+                            <li>Context-aware response generation</li>
+                            <li>Personalized service recommendations</li>
+                            <li>Smart routing to appropriate departments</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="getting-started">
+                    <h2>Getting Started</h2>
+                    <p>Ready to experience the future of citizen engagement? <a href="{{ url_for('login') }}">Login</a> to access our full suite of AI-powered services and start interacting with government services in a whole new way.</p>
+                </div>
+            </section>
+
+            <div class="back-link">
+                <a href="{{ url_for('index') }}">← Back to Home</a>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

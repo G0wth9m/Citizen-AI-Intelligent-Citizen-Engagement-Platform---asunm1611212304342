@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Assistant - CitizenAI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <nav>
+                <div class="nav-brand">
+                    <h1>CitizenAI</h1>
+                </div>
+                <div class="nav-links">
+                    <a href="{{ url_for('index') }}">Home</a>
+                    <a href="{{ url_for('about') }}">About</a>
+                    <a href="{{ url_for('services') }}">Services</a>
+                    <a href="{{ url_for('dashboard') }}">Dashboard</a>
+                    <a href="{{ url_for('logout') }}">Logout</a>
+                </div>
+            </nav>
+        </header>
+
+        <main class="content-page">
+            <div class="page-header">
+                <h1>Citizen Chat Assistant</h1>
+                <p class="subtitle">Your AI-powered guide to government services</p>
+            </div>
+
+            <!-- Error Messages -->
+            {% if error %}
+                <div class="error-message">{{ error }}</div>
+            {% endif %}
+
+            <!-- Chat Section -->
+            <section class="chat-section">
+                <h2>Ask the Assistant</h2>
+                <form method="POST" action="{{ url_for('ask_question') }}" class="chat-form">
+                    <div class="form-group">
+                        <label for="question">Your Question:</label>
+                        <textarea id="question" name="question" placeholder="Ask about government services, policies, or procedures..." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Submit Question</button>
+                </form>
+
+                <!-- Display Response -->
+                {% if question_response %}
+                    <div class="response-section">
+                        <h3>Assistant Response:</h3>
+                        {% if user_question %}
+                            <div class="user-question">
+                                <strong>Your Question:</strong> {{ user_question }}
+                            </div>
+                        {% endif %}
+                        <div class="ai-response">
+                            <strong>AI Assistant:</strong>
+                            <p>{{ question_response }}</p>
+                        </div>
+                    </div>
+                {% endif %}
+            </section>
+
+            <!-- Sentiment Analysis Section -->
+            <section class="sentiment-section">
+                <h2>Feedback Sentiment</h2>
+                <form method="POST" action="{{ url_for('submit_feedback') }}" class="feedback-form">
+                    <div class="form-group">
+                        <label for="feedback">Share Your Feedback:</label>
+                        <textarea id="feedback" name="feedback" placeholder="Tell us about your experience with government services..." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Analyze Sentiment</button>
+                </form>
+
+                <!-- Display Sentiment Result -->
+                {% if sentiment %}
+                    <div class="response-section">
+                        <h3>Sentiment Analysis Result:</h3>
+                        {% if feedback_text %}
+                            <div class="feedback-text">
+                                <strong>Your Feedback:</strong> {{ feedback_text }}
+                            </div>
+                        {% endif %}
+                        <div class="sentiment-result sentiment-{{ sentiment.lower() }}">
+                            <strong>Detected Sentiment:</strong> {{ sentiment }}
+                        </div>
+                    </div>
+                {% endif %}
+            </section>
+
+            <!-- Concern Reporting Section -->
+            <section class="concern-section">
+                <h2>Report a Concern</h2>
+                <form method="POST" action="{{ url_for('submit_concern') }}" class="concern-form">
+                    <div class="form-group">
+                        <label for="concern">Describe Your Concern:</label>
+                        <textarea id="concern" name="concern" placeholder="Report any issues or concerns with government services..." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Submit Concern</button>
+                </form>
+
+                <!-- Confirm Concern Submission -->
+                {% if concern_submitted %}
+                    <div class="response-section">
+                        <div class="success-message">
+                            ✅ Your concern has been submitted successfully and will be reviewed by the appropriate department.
+                        </div>
+                    </div>
+                {% endif %}
+            </section>
+
+            <div class="back-link">
+                <a href="{{ url_for('index') }}">← Back to Home</a>
+            </div>
+        </main>
+    </div>
+</body>
+</html>
